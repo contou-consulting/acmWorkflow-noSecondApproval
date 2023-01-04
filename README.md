@@ -18,7 +18,7 @@ On Hold => Pending Approval => Balanced => Put Back On Hold (To make a minor cha
 1. Approved Previously
     - A field that persists whether the document has gone through the approval process once
 2. Approved amount
-    - A field that persists what the value of the document was when the approval process was completed
+    - A field that persists what the value of the document was when the approval process was completed. The document's total has to be exactly the same for the approval process to be skipped
 
 It is important that these values be locked down using security.
 
