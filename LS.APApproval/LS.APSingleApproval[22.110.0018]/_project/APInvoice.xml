@@ -1,0 +1,4 @@
+﻿<Table TableName="APInvoice">
+    <Column TableName="APInvoice" ColumnName="UsrLSApprovedPreviously" ColumnType="bool" AllowNull="True" DecimalPrecision="0" DecimalLength="0" IsNewColumn="True" IsUnicode="True" />
+    <Column TableName="APInvoice" ColumnName="UsrLSApprovedAmt" ColumnType="decimal" AllowNull="True" DecimalPrecision="4" DecimalLength="19" IsNewColumn="True" IsUnicode="True" />
+</Table>

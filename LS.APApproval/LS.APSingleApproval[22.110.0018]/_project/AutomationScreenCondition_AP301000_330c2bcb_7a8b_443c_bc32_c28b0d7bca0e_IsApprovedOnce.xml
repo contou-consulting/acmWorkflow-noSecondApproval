@@ -1,0 +1,4 @@
+﻿<AutomationScreenCondition ConditionID="330c2bcb-7a8b-443c-bc32-c28b0d7bca0e" ScreenID="AP301000" ConditionName="IsApprovedOnce" Order="1" AppendSystemCondition="True" ParentCondition="IsApproved" JoinMethod="OR" InvertCondition="False">
+    <FilterRow LineNbr="1" CloseBrackets="0" OpenBrackets="0" FieldName="UsrLSApprovedPreviously" Condition="1" Operator="0" Value2="False" Value="True" IsActive="True" IsFromScheme="True" />
+    <FilterRow LineNbr="2" CloseBrackets="0" OpenBrackets="0" FieldName="UsrLSApprovedAmt" Condition="1" Operator="0" Value2="" Value="[CuryOrigDocAmt]" IsActive="True" IsFromScheme="False" />
+</AutomationScreenCondition>

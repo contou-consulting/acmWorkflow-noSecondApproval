@@ -1,0 +1,379 @@
+﻿<Automation screen="AP301000">
+    <Conditions screen="AP301000">
+        <AutomationScreenCondition ConditionID="330c2bcb-7a8b-443c-bc32-c28b0d7bca0e" ScreenID="AP301000" ConditionName="IsApprovedOnce" Order="1" AppendSystemCondition="True" ParentCondition="IsApproved" JoinMethod="OR" InvertCondition="False">
+            <FilterRow LineNbr="1" CloseBrackets="0" OpenBrackets="0" FieldName="UsrLSApprovedPreviously" Condition="1" Operator="0" Value2="False" Value="True" IsActive="True" IsFromScheme="True" />
+            <FilterRow LineNbr="2" CloseBrackets="0" OpenBrackets="0" FieldName="UsrLSApprovedAmt" Condition="1" Operator="0" Value2="" Value="[CuryOrigDocAmt]" IsActive="True" IsFromScheme="False" />
+        </AutomationScreenCondition>
+    </Conditions>
+    <Actions ScreenID="AP301000">
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="initializeState" ActionType="G" After="Last" PlacementInCategory="0" BatchMode="False" WindowMode="S" HideCondition="True" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="releaseFromHold" ActionType="G" After="initializeState" PlacementInCategory="0" BatchMode="False" MenuFolderType="Processing" WindowMode="S" DisablePersist="True" ExposedToMobile="False">
+            <StateActionFields>
+                <StateActionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" FieldName="Hold" ActionName="releaseFromHold" IsFromScheme="True" Value="False" StateActionFieldLineNbr="0" />
+            </StateActionFields>
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="putOnHold" ActionType="G" After="releaseFromHold" PlacementInCategory="0" BatchMode="False" MenuFolderType="Processing" WindowMode="S" DisablePersist="True" ExposedToMobile="False">
+            <StateActionFields>
+                <StateActionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" FieldName="Hold" ActionName="putOnHold" IsFromScheme="True" Value="True" StateActionFieldLineNbr="0" />
+                <StateActionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" FieldName="Approved" ActionName="putOnHold" IsFromScheme="True" Value="False" StateActionFieldLineNbr="1" />
+                <StateActionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" FieldName="Rejected" ActionName="putOnHold" IsFromScheme="True" Value="False" StateActionFieldLineNbr="2" />
+            </StateActionFields>
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="prebook" ActionType="G" After="putOnHold" PlacementInCategory="0" DisableCondition="fa9d3c20-353c-0a9d-793c-8d16093e85f6" BatchMode="False" MenuFolderType="Processing" WindowMode="S" HideCondition="f19f7ac0-7e9b-27ff-ca03-6cbee1cc4b50" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="release" ActionType="G" After="prebook" PlacementInCategory="0" BatchMode="False" MenuFolderType="Processing" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="payInvoice" ActionType="G" After="release" PlacementInCategory="0" DisableCondition="96d699ca-bac1-0a69-69f6-98a24427bfbd" BatchMode="False" MenuFolderType="Processing" WindowMode="S" HideCondition="2d4b08b0-5cc0-dbd7-2d1b-75a7e626a8d0" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="vendorRefund" ActionType="G" After="payInvoice" PlacementInCategory="0" DisableCondition="e10926f7-5c63-da41-a491-ab75ac97146b" BatchMode="False" MenuFolderType="Processing" WindowMode="S" HideCondition="2c2f0095-3d09-37ff-2ee4-3227a0a34457" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="reverseInvoice" ActionType="G" After="vendorRefund" PlacementInCategory="0" AfterInMenu="reclassify" BatchMode="False" MenuFolderType="Corrections" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="voidInvoice" ActionType="G" After="reverseInvoice" PlacementInCategory="0" AfterInMenu="reverseInvoice" BatchMode="False" MenuFolderType="Corrections" WindowMode="S" HideCondition="0b766cec-8330-e9af-21a3-952553864ca0" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="reclassifyBatch" ActionType="G" After="voidInvoice" PlacementInCategory="0" AfterInMenu="voidInvoice" DisableCondition="abf9ce81-532d-fd50-aabd-3d8308c0e2d0" BatchMode="False" MenuFolderType="Corrections" WindowMode="S" HideCondition="f19f7ac0-7e9b-27ff-ca03-6cbee1cc4b50" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="voidDocument" ActionType="G" After="reclassifyBatch" PlacementInCategory="0" DisableCondition="4f45afc4-3cde-8762-b33d-8ccbf63785a1" BatchMode="False" MenuFolderType="Corrections" WindowMode="S" HideCondition="3dc44191-cf5d-bf9a-3c61-f4542bd96688" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="createSchedule" ActionType="G" After="voidDocument" PlacementInCategory="0" BatchMode="False" MenuFolderType="CustomOther" WindowMode="S" HideCondition="2d4b08b0-5cc0-dbd7-2d1b-75a7e626a8d0" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="recalculateDiscountsAction" ActionType="G" After="createSchedule" PlacementInCategory="0" DisableCondition="6fe500a0-0a59-bff3-0b1c-88266507f5d8" BatchMode="False" MenuFolderType="CustomOther" WindowMode="S" HideCondition="2d4b08b0-5cc0-dbd7-2d1b-75a7e626a8d0" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="vendorDocuments" ActionType="G" After="recalculateDiscountsAction" PlacementInCategory="0" BatchMode="False" MenuFolderType="Inquiry" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="printAPEdit" ActionType="G" After="vendorDocuments" PlacementInCategory="0" BatchMode="False" MenuFolderType="Report" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="printAPRegister" ActionType="G" After="printAPEdit" PlacementInCategory="0" BatchMode="False" MenuFolderType="Report" WindowMode="S" HideCondition="71b62aa2-02f2-1476-eb8a-6c71a87ae682" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="True" ActionName="approve" ActionType="G" After="releaseFromHold" PlacementInCategory="0" BatchMode="False" MenuFolderType="Approval" WindowMode="S" HideCondition="c7766c04-d5df-a19b-ae27-4a1d2e1c23f8" ExposedToMobile="False">
+            <StateActionFields>
+                <StateActionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" FieldName="Approved" ActionName="approve" IsFromScheme="True" Value="True" StateActionFieldLineNbr="0" />
+                <StateActionField IsActive="True" FieldName="UsrLSApprovedPreviously" ActionName="approve" IsFromScheme="True" Value="True" StateActionFieldLineNbr="1" />
+                <StateActionField IsActive="True" FieldName="UsrLSApprovedAmt" ActionName="approve" IsFromScheme="False" Value="[CuryOrigDocAmt]" StateActionFieldLineNbr="2" />
+            </StateActionFields>
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="reject" ActionType="G" After="approve" PlacementInCategory="0" AfterInMenu="approve" BatchMode="False" MenuFolderType="Approval" WindowMode="S" HideCondition="c7766c04-d5df-a19b-ae27-4a1d2e1c23f8" ExposedToMobile="False">
+            <StateActionFields>
+                <StateActionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" FieldName="Rejected" ActionName="reject" IsFromScheme="True" Value="True" StateActionFieldLineNbr="0" />
+            </StateActionFields>
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="releaseRetainage" ActionType="G" After="payInvoice" PlacementInCategory="0" AfterInMenu="payInvoice" DisableCondition="c26c6794-76b8-0c10-a062-38a2c6be62fe" BatchMode="False" MenuFolderType="Processing" WindowMode="S" HideCondition="20be90c8-014b-017f-f37e-b8b66652b3ac" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="reclassify" ActionType="G" After="releaseRetainage" PlacementInCategory="0" DisableCondition="ac6b30a8-96c0-691b-1615-c439cff40089" BatchMode="False" MenuFolderType="Corrections" WindowMode="S" ExposedToMobile="False">
+            <StateActionFields />
+            <StateActionParams />
+        </Action>
+        <Category IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="False" DisplayName="Actions" CategoryName="Action" Placement="0" LineNbr="0">
+            <OriginalState IsActive="True" DisplayName="Actions" CategoryName="Action" Placement="0" />
+        </Category>
+        <Category IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="False" DisplayName="Processing" CategoryName="Processing" Placement="0" After="Action" LineNbr="1">
+            <OriginalState IsActive="True" DisplayName="Processing" CategoryName="Processing" Placement="0" After="Action" />
+        </Category>
+        <Category IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="False" DisplayName="Corrections" CategoryName="Corrections" Placement="0" After="Processing" LineNbr="2">
+            <OriginalState IsActive="True" DisplayName="Corrections" CategoryName="Corrections" Placement="0" After="Processing" />
+        </Category>
+        <Category IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="False" DisplayName="Approval" CategoryName="Approval" Placement="0" After="Corrections" LineNbr="3">
+            <OriginalState IsActive="True" DisplayName="Approval" CategoryName="Approval" Placement="0" After="Corrections" />
+        </Category>
+        <Category IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="False" DisplayName="Other" CategoryName="CustomOther" Placement="0" After="Approval" LineNbr="4">
+            <OriginalState IsActive="True" DisplayName="Other" CategoryName="CustomOther" Placement="0" After="Approval" />
+        </Category>
+        <Category IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="False" DisplayName="Inquiries" CategoryName="Inquiry" Placement="0" After="CustomOther" LineNbr="5">
+            <OriginalState IsActive="True" DisplayName="Inquiries" CategoryName="Inquiry" Placement="0" After="CustomOther" />
+        </Category>
+        <Category IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="False" DisplayName="Reports" CategoryName="Report" Placement="0" After="Inquiry" LineNbr="6">
+            <OriginalState IsActive="True" DisplayName="Reports" CategoryName="Report" Placement="0" After="Inquiry" />
+        </Category>
+    </Actions>
+    <WorkflowContainer ScreenID="AP301000" EnableWorkflowIDField="False" StateField="Status">
+        <Workflow IsActive="False" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" WorkflowGUID="e2e18d8d-b34a-8dd4-cd49-c1aa44faf7ce" Description="Default workflow" LineNbr="0">
+            <States>
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="_" IsInitial="True" StateLineNbr="0" Layout="200 50" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="H" IsInitial="False" StateLineNbr="0" Layout="200 50" ParentState="H-&gt;B" SkipConditionID="55415de7-6866-a531-6b60-7be39ec171a5" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="H-&gt;B" IsInitial="False" StateLineNbr="1" Layout="450 200" StateType="S" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="E" IsInitial="False" StateLineNbr="1" Layout="450 200" ParentState="H-&gt;B" SkipConditionID="3d5d8ed6-af38-5567-9eb8-9e4fa561e678" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="B" IsInitial="False" StateLineNbr="2" Layout="700 350" ParentState="H-&gt;B" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="S" IsInitial="False" StateLineNbr="2" Layout="700 350" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="V" IsInitial="False" StateLineNbr="3" Layout="950 500" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="N" IsInitial="False" StateLineNbr="4" Layout="1200 650" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="K" IsInitial="False" StateLineNbr="5" Layout="1450 800" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="P" IsInitial="False" StateLineNbr="6" Layout="1700 950" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="C" IsInitial="False" StateLineNbr="7" Layout="1950 1100" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="Z" IsInitial="False" StateLineNbr="8" Layout="2200 1250" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="R" IsInitial="False" StateLineNbr="9" Layout="2450 1400" />
+                <State IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="X" IsInitial="False" StateLineNbr="10" Layout="2700 1550" />
+            </States>
+            <Transitions>
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="b7c96101-3eaf-d991-7c46-a0b4dc6cf702" ActionName="initializeState" FromStateName="_" TargetStateName="H-&gt;B" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="9af3ab1c-d5db-2baa-b8d5-81b2a47f18e2" ActionName="OnUpdateStatus" FromStateName="H-&gt;B" TargetStateName="H-&gt;B" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="432da875-30dc-4ac9-1c4f-977ddfc9d267" ActionName="prebook" FromStateName="B" TargetStateName="K" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="92971d49-5b8c-8e59-286b-0d007a8e47ae" ActionName="voidInvoice" FromStateName="K" TargetStateName="V" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="f1fd01f5-51f2-2f90-2e32-479378d76515" ActionName="OnConfirmSchedule" FromStateName="S" TargetStateName="S" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="30a19962-a8cf-0c5c-5ad7-6a9ebedb2d8d" ActionName="voidInvoice" FromStateName="N" TargetStateName="V" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="ecd2b6bb-71b8-a7d4-d2c7-fbfc889a461c" ActionName="OnReleaseDocument" FromStateName="P" TargetStateName="N" TransitionLineNbr="0" ConditionID="e7b1349d-a73e-bb92-da2c-17722675e223" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="3b7f37fa-579c-5bef-9168-aa61ac1bf0f3" ActionName="OnOpenDocument" FromStateName="C" TargetStateName="N" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="3c3e57f2-2b95-7ecf-54bc-e8ae8802e2a6" ActionName="OnUpdateStatus" FromStateName="E" TargetStateName="H-&gt;B" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="78b77c9f-320d-60ae-e81e-96584b273175" ActionName="putOnHold" FromStateName="R" TargetStateName="H" TransitionLineNbr="0" DisablePersist="True" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="486579ce-25c0-2017-df1f-813c251984f6" ActionName="OnReleaseDocument" FromStateName="X" TargetStateName="N" TransitionLineNbr="0" ConditionID="e7b1349d-a73e-bb92-da2c-17722675e223" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="0e1dba10-afed-0d10-2e5c-1fac42847846" ActionName="OnReleaseDocument" FromStateName="H-&gt;B" TargetStateName="N" TransitionLineNbr="1" ConditionID="e7b1349d-a73e-bb92-da2c-17722675e223" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="41116abe-b40e-458b-f21b-42d937334a19" ActionName="OnReleaseDocument" FromStateName="K" TargetStateName="N" TransitionLineNbr="1" ConditionID="e7b1349d-a73e-bb92-da2c-17722675e223" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="296de211-b73e-958a-1a61-36f8b9b8f626" ActionName="OnVoidSchedule" FromStateName="S" TargetStateName="V" TransitionLineNbr="1" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="884ab810-a69c-f16c-c6a5-ab55dbab5655" ActionName="voidDocument" FromStateName="N" TargetStateName="V" TransitionLineNbr="1" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="b928f92d-34a6-2667-cee7-4a5e115b8180" ActionName="OnReleaseDocument" FromStateName="P" TargetStateName="C" TransitionLineNbr="1" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="c951817d-c7cb-7e9d-d557-88fa32210a28" ActionName="reclassify" FromStateName="C" TargetStateName="X" TransitionLineNbr="1" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="613f0732-8be9-dce0-94c4-48a4fb0d2469" ActionName="approve" FromStateName="E" TargetStateName="@N" TransitionLineNbr="1" ConditionID="3d5d8ed6-af38-5567-9eb8-9e4fa561e678" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="1d4c27d2-a96b-ae9c-3de3-3099a40dfc08" ActionName="OnReleaseDocument" FromStateName="X" TargetStateName="C" TransitionLineNbr="1" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="b387f9a4-9e9c-85c6-36a9-33463ff08e1a" ActionName="OnReleaseDocument" FromStateName="H-&gt;B" TargetStateName="C" TransitionLineNbr="2" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="b5617298-efaa-a7eb-e3ef-13da65025edf" ActionName="OnReleaseDocument" FromStateName="K" TargetStateName="C" TransitionLineNbr="2" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="c7e6c662-8984-71a5-a747-70f6346d8105" ActionName="OnCloseDocument" FromStateName="N" TargetStateName="C" TransitionLineNbr="2" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="f1db7471-ba51-8713-6954-cbc5b97d337f" ActionName="reject" FromStateName="E" TargetStateName="R" TransitionLineNbr="2" ConditionID="6940df5d-fec2-adaa-649f-c8f0c6e6a56c" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="a3b366c5-e60f-1c3c-94b3-2070023c51ea" ActionName="OnConfirmSchedule" FromStateName="H-&gt;B" TargetStateName="S" TransitionLineNbr="3" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="4b615b4b-d032-4c62-8c87-d5024ecb6a67" ActionName="OnReleaseDocument" FromStateName="N" TargetStateName="C" TransitionLineNbr="3" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="57fb6c87-d798-e986-d489-fb53706e37a2" ActionName="OnConfirmSchedule" FromStateName="E" TargetStateName="S" TransitionLineNbr="3" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="c733749c-4527-29c3-a137-407671f89102" ActionName="OnVoidDocument" FromStateName="N" TargetStateName="V" TransitionLineNbr="4" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="29a0a400-61a8-8486-ff54-c78ddc564e55" ActionName="reclassify" FromStateName="N" TargetStateName="X" TransitionLineNbr="5" DisablePersist="False" TriggeredBy="1" />
+            </Transitions>
+            <StateProperties />
+            <StateActions>
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="initializeState" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="_" AutoRun="True" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="printAPEdit" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="H-&gt;B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="H-&gt;B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="recalculateDiscountsAction" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="H-&gt;B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="releaseFromHold" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="H" AutoRun="False" Connotation="Success" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="approve" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="E" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="reject" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="E" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="putOnHold" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="E" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="release" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="B" AutoRun="False" Connotation="Success" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="prebook" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="putOnHold" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="createSchedule" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="createSchedule" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="S" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="printAPEdit" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="S" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="S" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="printAPEdit" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="V" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="V" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="payInvoice" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="N" AutoRun="False" Connotation="Success" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="printAPRegister" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="voidDocument" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="4" ActionName="voidInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="5" ActionName="vendorRefund" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="6" ActionName="reverseInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="7" ActionName="reclassifyBatch" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="8" ActionName="reclassify" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="release" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="payInvoice" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="printAPRegister" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="4" ActionName="reverseInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="5" ActionName="voidInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="release" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="payInvoice" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="printAPRegister" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="4" ActionName="voidInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="printAPRegister" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="reverseInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="reclassifyBatch" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="4" ActionName="reclassify" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="putOnHold" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="R" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="printAPEdit" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="R" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="R" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="payInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="X" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="release" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="X" AutoRun="False" Connotation="Success" />
+            </StateActions>
+            <StateHandlers>
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnUpdateStatus" StateName="H-&gt;B" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="1" HandlerName="OnConfirmSchedule" StateName="H-&gt;B" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="2" HandlerName="OnReleaseDocument" StateName="H-&gt;B" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnConfirmSchedule" StateName="S" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="1" HandlerName="OnVoidSchedule" StateName="S" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnCloseDocument" StateName="N" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="1" HandlerName="OnReleaseDocument" StateName="N" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="2" HandlerName="OnVoidDocument" StateName="N" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnReleaseDocument" StateName="K" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnReleaseDocument" StateName="P" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnOpenDocument" StateName="C" />
+                <StateHandler IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnReleaseDocument" StateName="X" />
+            </StateHandlers>
+            <TransitionFields>
+                <TransitionField IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="a3b366c5-e60f-1c3c-94b3-2070023c51ea" FieldName="Scheduled" IsFromScheme="True" TransitionFieldLineNbr="0" Value="True" />
+                <TransitionField IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="a3b366c5-e60f-1c3c-94b3-2070023c51ea" FieldName="ScheduleID" IsFromScheme="False" TransitionFieldLineNbr="1" Value="@ScheduleID" />
+                <TransitionField IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="f1fd01f5-51f2-2f90-2e32-479378d76515" FieldName="Scheduled" IsFromScheme="True" TransitionFieldLineNbr="0" Value="True" />
+                <TransitionField IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="f1fd01f5-51f2-2f90-2e32-479378d76515" FieldName="ScheduleID" IsFromScheme="False" TransitionFieldLineNbr="1" Value="@ScheduleID" />
+                <TransitionField IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="296de211-b73e-958a-1a61-36f8b9b8f626" FieldName="Voided" IsFromScheme="True" TransitionFieldLineNbr="0" Value="True" />
+                <TransitionField IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="296de211-b73e-958a-1a61-36f8b9b8f626" FieldName="Scheduled" IsFromScheme="True" TransitionFieldLineNbr="1" Value="False" />
+                <TransitionField IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="296de211-b73e-958a-1a61-36f8b9b8f626" FieldName="ScheduleID" IsFromScheme="True" TransitionFieldLineNbr="2" />
+                <TransitionField IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="57fb6c87-d798-e986-d489-fb53706e37a2" FieldName="Scheduled" IsFromScheme="True" TransitionFieldLineNbr="0" Value="True" />
+                <TransitionField IsActive="True" IsSystem="True" IsSystemReadonly="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="57fb6c87-d798-e986-d489-fb53706e37a2" FieldName="ScheduleID" IsFromScheme="False" TransitionFieldLineNbr="1" Value="@ScheduleID" />
+            </TransitionFields>
+            <OnEnterStateFields />
+            <OnLeaveStateFields />
+        </Workflow>
+        <Workflow IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="True" WorkflowGUID="23efd45d-f30b-4372-962c-335885a599e0" Description="NoSecondAPApproval" LineNbr="1">
+            <States>
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="_" IsInitial="True" StateLineNbr="0" Layout="200 50" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="H" IsInitial="False" StateLineNbr="0" Layout="200 50" ParentState="H-&gt;B" SkipConditionID="55415de7-6866-a531-6b60-7be39ec171a5" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="H-&gt;B" IsInitial="False" StateLineNbr="1" Layout="450 200" StateType="S" />
+                <State IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="True" Identifier="E" IsInitial="False" StateLineNbr="1" Layout="450 200" ParentState="H-&gt;B" SkipConditionID="330c2bcb-7a8b-443c-bc32-c28b0d7bca0e">
+                    <OriginalState IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="E" IsInitial="False" StateLineNbr="1" Layout="450 200" ParentState="H-&gt;B" SkipConditionID="3d5d8ed6-af38-5567-9eb8-9e4fa561e678" />
+                </State>
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="B" IsInitial="False" StateLineNbr="2" Layout="700 350" ParentState="H-&gt;B" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="S" IsInitial="False" StateLineNbr="2" Layout="700 350" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="V" IsInitial="False" StateLineNbr="3" Layout="950 500" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="N" IsInitial="False" StateLineNbr="4" Layout="1200 650" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="K" IsInitial="False" StateLineNbr="5" Layout="1450 800" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="P" IsInitial="False" StateLineNbr="6" Layout="1700 950" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="C" IsInitial="False" StateLineNbr="7" Layout="1950 1100" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="Z" IsInitial="False" StateLineNbr="8" Layout="2200 1250" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="R" IsInitial="False" StateLineNbr="9" Layout="2450 1400" />
+                <State IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" Identifier="X" IsInitial="False" StateLineNbr="10" Layout="2700 1550" />
+            </States>
+            <Transitions>
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="b7c96101-3eaf-d991-7c46-a0b4dc6cf702" ActionName="initializeState" FromStateName="_" TargetStateName="H-&gt;B" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="9af3ab1c-d5db-2baa-b8d5-81b2a47f18e2" ActionName="OnUpdateStatus" FromStateName="H-&gt;B" TargetStateName="H-&gt;B" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="432da875-30dc-4ac9-1c4f-977ddfc9d267" ActionName="prebook" FromStateName="B" TargetStateName="K" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="92971d49-5b8c-8e59-286b-0d007a8e47ae" ActionName="voidInvoice" FromStateName="K" TargetStateName="V" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="f1fd01f5-51f2-2f90-2e32-479378d76515" ActionName="OnConfirmSchedule" FromStateName="S" TargetStateName="S" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="30a19962-a8cf-0c5c-5ad7-6a9ebedb2d8d" ActionName="voidInvoice" FromStateName="N" TargetStateName="V" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="ecd2b6bb-71b8-a7d4-d2c7-fbfc889a461c" ActionName="OnReleaseDocument" FromStateName="P" TargetStateName="N" TransitionLineNbr="0" ConditionID="e7b1349d-a73e-bb92-da2c-17722675e223" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="3b7f37fa-579c-5bef-9168-aa61ac1bf0f3" ActionName="OnOpenDocument" FromStateName="C" TargetStateName="N" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="3c3e57f2-2b95-7ecf-54bc-e8ae8802e2a6" ActionName="OnUpdateStatus" FromStateName="E" TargetStateName="H-&gt;B" TransitionLineNbr="0" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="78b77c9f-320d-60ae-e81e-96584b273175" ActionName="putOnHold" FromStateName="R" TargetStateName="H" TransitionLineNbr="0" DisablePersist="True" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="486579ce-25c0-2017-df1f-813c251984f6" ActionName="OnReleaseDocument" FromStateName="X" TargetStateName="N" TransitionLineNbr="0" ConditionID="e7b1349d-a73e-bb92-da2c-17722675e223" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="0e1dba10-afed-0d10-2e5c-1fac42847846" ActionName="OnReleaseDocument" FromStateName="H-&gt;B" TargetStateName="N" TransitionLineNbr="1" ConditionID="e7b1349d-a73e-bb92-da2c-17722675e223" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="41116abe-b40e-458b-f21b-42d937334a19" ActionName="OnReleaseDocument" FromStateName="K" TargetStateName="N" TransitionLineNbr="1" ConditionID="e7b1349d-a73e-bb92-da2c-17722675e223" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="296de211-b73e-958a-1a61-36f8b9b8f626" ActionName="OnVoidSchedule" FromStateName="S" TargetStateName="V" TransitionLineNbr="1" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="884ab810-a69c-f16c-c6a5-ab55dbab5655" ActionName="voidDocument" FromStateName="N" TargetStateName="V" TransitionLineNbr="1" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="b928f92d-34a6-2667-cee7-4a5e115b8180" ActionName="OnReleaseDocument" FromStateName="P" TargetStateName="C" TransitionLineNbr="1" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="c951817d-c7cb-7e9d-d557-88fa32210a28" ActionName="reclassify" FromStateName="C" TargetStateName="X" TransitionLineNbr="1" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="False" TransitionID="613f0732-8be9-dce0-94c4-48a4fb0d2469" ActionName="approve" FromStateName="E" TargetStateName="@N" TransitionLineNbr="1" ConditionID="330c2bcb-7a8b-443c-bc32-c28b0d7bca0e" DisablePersist="False" TriggeredBy="1">
+                    <OriginalState IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="613f0732-8be9-dce0-94c4-48a4fb0d2469" ActionName="approve" FromStateName="E" TargetStateName="@N" TransitionLineNbr="1" ConditionID="3d5d8ed6-af38-5567-9eb8-9e4fa561e678" DisablePersist="False" TriggeredBy="1" />
+                </Transition>
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="1d4c27d2-a96b-ae9c-3de3-3099a40dfc08" ActionName="OnReleaseDocument" FromStateName="X" TargetStateName="C" TransitionLineNbr="1" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="b387f9a4-9e9c-85c6-36a9-33463ff08e1a" ActionName="OnReleaseDocument" FromStateName="H-&gt;B" TargetStateName="C" TransitionLineNbr="2" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="b5617298-efaa-a7eb-e3ef-13da65025edf" ActionName="OnReleaseDocument" FromStateName="K" TargetStateName="C" TransitionLineNbr="2" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="c7e6c662-8984-71a5-a747-70f6346d8105" ActionName="OnCloseDocument" FromStateName="N" TargetStateName="C" TransitionLineNbr="2" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="f1db7471-ba51-8713-6954-cbc5b97d337f" ActionName="reject" FromStateName="E" TargetStateName="R" TransitionLineNbr="2" ConditionID="6940df5d-fec2-adaa-649f-c8f0c6e6a56c" DisablePersist="False" TriggeredBy="1" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="a3b366c5-e60f-1c3c-94b3-2070023c51ea" ActionName="OnConfirmSchedule" FromStateName="H-&gt;B" TargetStateName="S" TransitionLineNbr="3" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="4b615b4b-d032-4c62-8c87-d5024ecb6a67" ActionName="OnReleaseDocument" FromStateName="N" TargetStateName="C" TransitionLineNbr="3" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="57fb6c87-d798-e986-d489-fb53706e37a2" ActionName="OnConfirmSchedule" FromStateName="E" TargetStateName="S" TransitionLineNbr="3" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="c733749c-4527-29c3-a137-407671f89102" ActionName="OnVoidDocument" FromStateName="N" TargetStateName="V" TransitionLineNbr="4" DisablePersist="False" TriggeredBy="2" />
+                <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="29a0a400-61a8-8486-ff54-c78ddc564e55" ActionName="reclassify" FromStateName="N" TargetStateName="X" TransitionLineNbr="5" DisablePersist="False" TriggeredBy="1" />
+            </Transitions>
+            <StateProperties />
+            <StateActions>
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="initializeState" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="_" AutoRun="True" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="printAPEdit" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="H-&gt;B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="H-&gt;B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="recalculateDiscountsAction" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="H-&gt;B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="releaseFromHold" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="H" AutoRun="False" Connotation="Success" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="approve" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="E" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="reject" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="E" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="putOnHold" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="E" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="release" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="B" AutoRun="False" Connotation="Success" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="prebook" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="putOnHold" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="createSchedule" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="B" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="createSchedule" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="S" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="printAPEdit" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="S" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="S" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="printAPEdit" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="V" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="V" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="payInvoice" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="N" AutoRun="False" Connotation="Success" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="printAPRegister" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="voidDocument" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="4" ActionName="voidInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="5" ActionName="vendorRefund" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="6" ActionName="reverseInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="7" ActionName="reclassifyBatch" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="8" ActionName="reclassify" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="N" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="release" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="payInvoice" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="printAPRegister" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="4" ActionName="reverseInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="5" ActionName="voidInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="K" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="release" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="payInvoice" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="printAPRegister" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="4" ActionName="voidInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="P" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="printAPRegister" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="reverseInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="3" ActionName="reclassifyBatch" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="4" ActionName="reclassify" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="C" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="putOnHold" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="R" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="printAPEdit" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="R" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="2" ActionName="vendorDocuments" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="R" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="0" ActionName="payInvoice" IsDisabled="False" IsHide="False" IsTopLevel="False" StateName="X" AutoRun="False" />
+                <StateAction IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateActionLineNbr="1" ActionName="release" IsDisabled="False" IsHide="False" IsTopLevel="True" StateName="X" AutoRun="False" Connotation="Success" />
+            </StateActions>
+            <StateHandlers>
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnUpdateStatus" StateName="H-&gt;B" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="1" HandlerName="OnConfirmSchedule" StateName="H-&gt;B" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="2" HandlerName="OnReleaseDocument" StateName="H-&gt;B" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnConfirmSchedule" StateName="S" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="1" HandlerName="OnVoidSchedule" StateName="S" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnCloseDocument" StateName="N" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="1" HandlerName="OnReleaseDocument" StateName="N" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="2" HandlerName="OnVoidDocument" StateName="N" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnReleaseDocument" StateName="K" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnReleaseDocument" StateName="P" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnOpenDocument" StateName="C" />
+                <StateHandler IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" StateEventHandlerLineNbr="0" HandlerName="OnReleaseDocument" StateName="X" />
+            </StateHandlers>
+            <TransitionFields>
+                <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="a3b366c5-e60f-1c3c-94b3-2070023c51ea" FieldName="Scheduled" IsFromScheme="True" TransitionFieldLineNbr="0" Value="True" />
+                <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="a3b366c5-e60f-1c3c-94b3-2070023c51ea" FieldName="ScheduleID" IsFromScheme="False" TransitionFieldLineNbr="1" Value="@ScheduleID" />
+                <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="f1fd01f5-51f2-2f90-2e32-479378d76515" FieldName="Scheduled" IsFromScheme="True" TransitionFieldLineNbr="0" Value="True" />
+                <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="f1fd01f5-51f2-2f90-2e32-479378d76515" FieldName="ScheduleID" IsFromScheme="False" TransitionFieldLineNbr="1" Value="@ScheduleID" />
+                <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="296de211-b73e-958a-1a61-36f8b9b8f626" FieldName="Voided" IsFromScheme="True" TransitionFieldLineNbr="0" Value="True" />
+                <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="296de211-b73e-958a-1a61-36f8b9b8f626" FieldName="Scheduled" IsFromScheme="True" TransitionFieldLineNbr="1" Value="False" />
+                <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="296de211-b73e-958a-1a61-36f8b9b8f626" FieldName="ScheduleID" IsFromScheme="True" TransitionFieldLineNbr="2" />
+                <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="57fb6c87-d798-e986-d489-fb53706e37a2" FieldName="Scheduled" IsFromScheme="True" TransitionFieldLineNbr="0" Value="True" />
+                <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="57fb6c87-d798-e986-d489-fb53706e37a2" FieldName="ScheduleID" IsFromScheme="False" TransitionFieldLineNbr="1" Value="@ScheduleID" />
+            </TransitionFields>
+            <OnEnterStateFields />
+            <OnLeaveStateFields />
+        </Workflow>
+    </WorkflowContainer>
+</Automation>

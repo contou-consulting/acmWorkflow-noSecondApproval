@@ -1,0 +1,69 @@
+﻿<Graph ClassName="APInvoiceEntry" Source="#CDATA" IsNew="True" FileType="ExistingGraph">
+    <CDATA name="Source"><![CDATA[using System;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using PX.Common;
+using PX.Data;
+using PX.Data.DependencyInjection;
+using PX.Data.WorkflowAPI;
+using PX.LicensePolicy;
+using PX.Objects.Common;
+using PX.Objects.Common.Extensions;
+using PX.Objects.Common.Bql;
+using PX.Objects.Common.Discount;
+using PX.Objects.GL;
+using PX.Objects.GL.FinPeriods;
+using PX.Objects.CM.Extensions;
+using PX.Objects.CS;
+using PX.Objects.CR;
+using PX.Objects.CT;
+using PX.Objects.PM;
+using PX.Objects.TX;
+using PX.Objects.IN;
+using PX.Objects.IN.Services;
+using PX.Objects.CA;
+using PX.Objects.BQLConstants;
+using PX.Objects.EP;
+using PX.Objects.PO;
+using PX.Objects.SO;
+using PX.Objects.DR;
+using PX.Objects.AR;
+using PX.TM;
+using PX.Objects.Extensions.MultiCurrency.AP;
+using AP1099Hist = PX.Objects.AP.Overrides.APDocumentRelease.AP1099Hist;
+using AP1099Yr = PX.Objects.AP.Overrides.APDocumentRelease.AP1099Yr;
+using PX.Objects.GL.Reclassification.UI;
+using Branch = PX.Objects.GL.Branch;
+using CRLocation = PX.Objects.CR.Standalone.Location;
+using PX.Objects.AP.BQL;
+using PX.Objects.Common.GraphExtensions.Abstract;
+using PX.Objects.Common.GraphExtensions.Abstract.DAC;
+using PX.Objects.Common.GraphExtensions.Abstract.Mapping;
+using PX.Objects.Extensions.CostAccrual;
+using PX.Data.BQL.Fluent;
+using PX.Data.BQL;
+using PX.Objects;
+using PX.Objects.AP;
+
+namespace LS.APApproval
+{
+    // Acuminator disable once PX1016 ExtensionDoesNotDeclareIsActiveMethod extension should be constantly active
+    public class LSSingleApproval_APInvoiceEntry_Extension : PXGraphExtension<PX.Objects.AP.APInvoiceEntry>
+    {
+        #region Event Handlers
+        protected virtual void _(Events.FieldUpdating<APInvoice, APInvoice.hold> e)
+        {
+            if (e.Row is null) return;
+            var ext = e.Cache.GetExtension<LSSLAPInvoiceApprovalExt>(e.Row);
+            if (!ext.UsrLSApprovedPreviously.GetValueOrDefault()) return;
+            if (ext.UsrLSApprovedAmt != e.Row.CuryOrigDocAmt) return;
+
+            var graphExt = Base.GetExtension<APInvoiceEntry.APInvoiceEntryDocumentExtension>();
+            graphExt.SuppressApproval();
+        }
+        #endregion
+    }
+}]]></CDATA>
+</Graph>
