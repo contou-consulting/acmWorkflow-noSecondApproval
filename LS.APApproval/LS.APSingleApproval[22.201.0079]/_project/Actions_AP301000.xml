@@ -69,11 +69,9 @@
         <StateActionFields />
         <StateActionParams />
     </Action>
-    <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="True" ActionName="approve" ActionType="G" After="releaseFromHold" PlacementInCategory="0" BatchMode="False" MenuFolderType="Approval" WindowMode="S" HideCondition="c7766c04-d5df-a19b-ae27-4a1d2e1c23f8" ExposedToMobile="False">
+    <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="approve" ActionType="G" After="releaseFromHold" PlacementInCategory="0" BatchMode="False" MenuFolderType="Approval" WindowMode="S" HideCondition="c7766c04-d5df-a19b-ae27-4a1d2e1c23f8" ExposedToMobile="False">
         <StateActionFields>
             <StateActionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" FieldName="Approved" ActionName="approve" IsFromScheme="True" Value="True" StateActionFieldLineNbr="0" />
-            <StateActionField IsActive="True" FieldName="UsrLSApprovedPreviously" ActionName="approve" IsFromScheme="True" Value="True" StateActionFieldLineNbr="1" />
-            <StateActionField IsActive="True" FieldName="UsrLSApprovedAmt" ActionName="approve" IsFromScheme="False" Value="[CuryOrigDocAmt]" StateActionFieldLineNbr="2" />
         </StateActionFields>
         <StateActionParams />
     </Action>

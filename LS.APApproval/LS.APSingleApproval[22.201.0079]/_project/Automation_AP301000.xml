@@ -76,11 +76,9 @@
             <StateActionFields />
             <StateActionParams />
         </Action>
-        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="True" ActionName="approve" ActionType="G" After="releaseFromHold" PlacementInCategory="0" BatchMode="False" MenuFolderType="Approval" WindowMode="S" HideCondition="c7766c04-d5df-a19b-ae27-4a1d2e1c23f8" ExposedToMobile="False">
+        <Action IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" ActionName="approve" ActionType="G" After="releaseFromHold" PlacementInCategory="0" BatchMode="False" MenuFolderType="Approval" WindowMode="S" HideCondition="c7766c04-d5df-a19b-ae27-4a1d2e1c23f8" ExposedToMobile="False">
             <StateActionFields>
                 <StateActionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" FieldName="Approved" ActionName="approve" IsFromScheme="True" Value="True" StateActionFieldLineNbr="0" />
-                <StateActionField IsActive="True" FieldName="UsrLSApprovedPreviously" ActionName="approve" IsFromScheme="True" Value="True" StateActionFieldLineNbr="1" />
-                <StateActionField IsActive="True" FieldName="UsrLSApprovedAmt" ActionName="approve" IsFromScheme="False" Value="[CuryOrigDocAmt]" StateActionFieldLineNbr="2" />
             </StateActionFields>
             <StateActionParams />
         </Action>
@@ -283,7 +281,7 @@
                 <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="884ab810-a69c-f16c-c6a5-ab55dbab5655" ActionName="voidDocument" FromStateName="N" TargetStateName="V" TransitionLineNbr="1" DisablePersist="False" TriggeredBy="1" />
                 <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="b928f92d-34a6-2667-cee7-4a5e115b8180" ActionName="OnReleaseDocument" FromStateName="P" TargetStateName="C" TransitionLineNbr="1" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
                 <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="c951817d-c7cb-7e9d-d557-88fa32210a28" ActionName="reclassify" FromStateName="C" TargetStateName="X" TransitionLineNbr="1" DisablePersist="False" TriggeredBy="1" />
-                <Transition IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="False" TransitionID="613f0732-8be9-dce0-94c4-48a4fb0d2469" ActionName="approve" FromStateName="E" TargetStateName="@N" TransitionLineNbr="1" ConditionID="330c2bcb-7a8b-443c-bc32-c28b0d7bca0e" DisablePersist="False" TriggeredBy="1">
+                <Transition IsActive="True" IsSystem="True" IsCustomized="True" IsCustomizedRecursive="True" TransitionID="613f0732-8be9-dce0-94c4-48a4fb0d2469" ActionName="approve" FromStateName="E" TargetStateName="@N" TransitionLineNbr="1" ConditionID="330c2bcb-7a8b-443c-bc32-c28b0d7bca0e" DisablePersist="False" TriggeredBy="1">
                     <OriginalState IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="613f0732-8be9-dce0-94c4-48a4fb0d2469" ActionName="approve" FromStateName="E" TargetStateName="@N" TransitionLineNbr="1" ConditionID="3d5d8ed6-af38-5567-9eb8-9e4fa561e678" DisablePersist="False" TriggeredBy="1" />
                 </Transition>
                 <Transition IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="1d4c27d2-a96b-ae9c-3de3-3099a40dfc08" ActionName="OnReleaseDocument" FromStateName="X" TargetStateName="C" TransitionLineNbr="1" ConditionID="96d699ca-bac1-0a69-69f6-98a24427bfbd" DisablePersist="False" TriggeredBy="2" />
@@ -371,6 +369,8 @@
                 <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="296de211-b73e-958a-1a61-36f8b9b8f626" FieldName="ScheduleID" IsFromScheme="True" TransitionFieldLineNbr="2" />
                 <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="57fb6c87-d798-e986-d489-fb53706e37a2" FieldName="Scheduled" IsFromScheme="True" TransitionFieldLineNbr="0" Value="True" />
                 <TransitionField IsActive="True" IsSystem="True" IsCustomized="False" IsCustomizedRecursive="False" TransitionID="57fb6c87-d798-e986-d489-fb53706e37a2" FieldName="ScheduleID" IsFromScheme="False" TransitionFieldLineNbr="1" Value="@ScheduleID" />
+                <TransitionField IsActive="True" TransitionID="613f0732-8be9-dce0-94c4-48a4fb0d2469" FieldName="UsrLSApprovedPreviously" IsFromScheme="False" TransitionFieldLineNbr="1" Value="=True" />
+                <TransitionField IsActive="True" TransitionID="613f0732-8be9-dce0-94c4-48a4fb0d2469" FieldName="UsrLSApprovedAmt" IsFromScheme="False" TransitionFieldLineNbr="2" Value="=[CuryOrigDocAmt]" />
             </TransitionFields>
             <OnEnterStateFields />
             <OnLeaveStateFields />
