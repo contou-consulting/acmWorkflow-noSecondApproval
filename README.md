@@ -14,11 +14,11 @@ The second approval process is very frustrating for executives who dont want to 
 On Hold => Pending Approval => Balanced => Put Back On Hold (To make a minor change like a description change, document balance remains the same) => Balanced.
 
 ### Added Fields
-![The fields added on the approvals tab](images\image1.jpg "Fields Added")
+![The fields added on the approvals tab](/images/image1.jpg "Fields Added")
 1. Approved Previously
     - A field that persists whether the document has gone through the approval process once
 2. Approved amount
-    - A field that persists what the value of the document was when the approval process was completed
+    - A field that persists what the value of the document was when the approval process was completed. The document's total has to be exactly the same for the approval process to be skipped
 
 It is important that these values be locked down using security.
 
