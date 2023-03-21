@@ -1,0 +1,81 @@
+﻿<Graph ClassName="LSEPApprovalHistory" Source="#CDATA" IsNew="True" FileType="NewDac">
+    <CDATA name="Source"><![CDATA[using System;
+using PX.Data;
+
+namespace LS.APApproval
+{
+	[Serializable]
+	[PXCacheName("LSEPApprovalHistory")]
+	public class LSEPApprovalHistory : IBqlTable
+	{
+		#region ApprovalID
+		[PXDBIdentity(IsKey = true)]
+		public virtual int? ApprovalID { get; set; }
+		public abstract class approvalID : PX.Data.BQL.BqlInt.Field<approvalID> { }
+		#endregion
+
+		#region RefNoteId
+		[PXDBGuid()]
+		[PXUIField(DisplayName = "Ref Note ID")]
+		public virtual Guid? RefNoteID { get; set; }
+		public abstract class refNoteID : PX.Data.BQL.BqlGuid.Field<refNoteID> { }
+		#endregion
+
+		#region AssignmentMapID
+		[PXDBInt()]
+		[PXUIField(DisplayName = "Assignment Map ID")]
+		public virtual int? AssignmentMapID { get; set; }
+		public abstract class assignmentMapID : PX.Data.BQL.BqlInt.Field<assignmentMapID> { }
+		#endregion
+
+		#region Stepid
+		[PXDBGuid()]
+		[PXUIField(DisplayName = "Step ID")]
+		public virtual Guid? StepID { get; set; }
+		public abstract class stepID : PX.Data.BQL.BqlGuid.Field<stepID> { }
+		#endregion
+
+		#region Ruleid
+		[PXDBGuid()]
+		[PXUIField(DisplayName = "Rule ID")]
+		public virtual Guid? RuleID { get; set; }
+		public abstract class ruleID : PX.Data.BQL.BqlGuid.Field<ruleID> { }
+		#endregion
+
+		#region WorkgroupID
+		[PXDBInt()]
+		[PXUIField(DisplayName = "Workgroup ID")]
+		public virtual int? WorkgroupID { get; set; }
+		public abstract class workgroupID : PX.Data.BQL.BqlInt.Field<workgroupID> { }
+		#endregion
+
+		#region OwnerID
+		[PXDBInt()]
+		[PXUIField(DisplayName = "Owner ID")]
+		public virtual int? OwnerID { get; set; }
+		public abstract class ownerID : PX.Data.BQL.BqlInt.Field<ownerID> { }
+		#endregion
+
+		#region DocumentOwnerID
+		[PXDBInt()]
+		[PXUIField(DisplayName = "Document Owner ID")]
+		public virtual int? DocumentOwnerID { get; set; }
+		public abstract class documentOwnerID : PX.Data.BQL.BqlInt.Field<documentOwnerID> { }
+		#endregion
+
+		#region ApprovedByID
+		[PXDBInt()]
+		[PXUIField(DisplayName = "Approved By ID")]
+		public virtual int? ApprovedByID { get; set; }
+		public abstract class approvedByID : PX.Data.BQL.BqlInt.Field<approvedByID> { }
+		#endregion
+
+		#region ApproveDate
+		[PXDBDate()]
+		[PXUIField(DisplayName = "Approve Date")]
+		public virtual DateTime? ApproveDate { get; set; }
+		public abstract class approveDate : PX.Data.BQL.BqlDateTime.Field<approveDate> { }
+		#endregion
+	}
+}]]></CDATA>
+</Graph>

@@ -1,0 +1,19 @@
+﻿<Sql TableName="LSEPApprovalHistory" TableSchemaXml="#CDATA">
+    <CDATA name="TableSchemaXml"><![CDATA[<table name="LSEPApprovalHistory">
+  <col name="CompanyID" type="Int" default="Zero" />
+  <col name="ApprovalID" type="Int" identity="true" />
+  <col name="RefNoteId" type="UniqueIdentifier" />
+  <col name="AssignmentMapID" type="Int" nullable="true" />
+  <col name="StepID" type="UniqueIdentifier" nullable="true" />
+  <col name="RuleID" type="UniqueIdentifier" nullable="true" />
+  <col name="WorkgroupID" type="Int" nullable="true" />
+  <col name="OwnerID" type="Int" nullable="true" />
+  <col name="DocumentOwnerID" type="Int" nullable="true" />
+  <col name="ApprovedByID" type="Int" nullable="true" />
+  <col name="ApproveDate" type="DateTime" nullable="true" />
+  <index name="LSEPApprovalHistory_PK" clustered="true" primary="true" unique="true">
+    <col name="CompanyID" />
+    <col name="ApprovalID" />
+  </index>
+</table>]]></CDATA>
+</Sql>
